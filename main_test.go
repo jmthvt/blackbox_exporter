@@ -70,8 +70,8 @@ func TestPrometheusProberMetricName(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 	body := rr.Body.String()
-	if body == "1" {
-		t.Errorf("Body should have returned a success message.")
+	if body != "1" {
+		t.Errorf("Body should have returned a success message, returned: %s", body)
 	}
 }
 
