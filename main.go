@@ -152,11 +152,11 @@ func probeHandler(w http.ResponseWriter, r *http.Request, c *config.Config, logg
 					for _, metric := range mf.Metric {
 						switch mf.GetType() {
 						case dto.MetricType_COUNTER:
-							value = strconv.FormatFloat(metric.Counter.GetValue(), 'E', -1, 64)
+							value = fmt.Sprint(metric.Counter.GetValue())
 						case dto.MetricType_GAUGE:
-							value = strconv.FormatFloat(metric.Gauge.GetValue(), 'E', -1, 64)
+							value = fmt.Sprint(metric.Gauge.GetValue())
 						case dto.MetricType_UNTYPED:
-							value = strconv.FormatFloat(metric.Untyped.GetValue(), 'E', -1, 64)
+							value = fmt.Sprint(metric.Untyped.GetValue())
 						default:
 							value = fmt.Sprintf("unexpected type in metric %s %s", mf.GetName(), mf.GetType())
 						}
