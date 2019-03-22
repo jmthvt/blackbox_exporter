@@ -280,12 +280,13 @@ func ProbeHTTP(ctx context.Context, target string, module config.Module, registr
 
 	origHost := targetURL.Host
 	if httpClientConfig.ProxyURL.URL == nil {
-		ip, lookupTime, err := chooseProtocol(module.HTTP.PreferredIPProtocol, targetHost, registry, logger)
+		ip, lookupTime, err := chooseProtocol(module.HTTP.IPProtocol, module.HTTP.IPProtocolFallback, targetHost, registry, logger)
 		if err != nil {
 			level.Error(logger).Log("msg", "Error resolving address", "err", err)
 			return false
 		}
 		durationGaugeVec.WithLabelValues("resolve").Add(lookupTime)
+		
 		if targetPort == "" {
 		 	targetURL.Host = "[" + ip.String() + "]"
 		} else {
