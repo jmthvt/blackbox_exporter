@@ -174,8 +174,6 @@ func probeHandler(w http.ResponseWriter, r *http.Request, c *config.Config, logg
 
 type scrapeLogger struct {
 	next         log.Logger
-	module       string
-	target       string
 	buffer       bytes.Buffer
 	bufferLogger log.Logger
 }
@@ -255,7 +253,7 @@ func main() {
 
 	level.Info(logger).Log("msg", "Loaded config file")
 
-	hup := make(chan os.Signal)
+	hup := make(chan os.Signal, 1)
 	reloadCh := make(chan chan error)
 	signal.Notify(hup, syscall.SIGHUP)
 	go func() {
