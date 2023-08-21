@@ -36,7 +36,7 @@ import (
 	pconfig "github.com/prometheus/common/config"
 	"golang.org/x/net/publicsuffix"
 
-	"github.com/DeviaVir/blackbox_exporter/config"
+	"github.com/jmthvt/blackbox_exporter/config"
 )
 
 func matchRegularExpressions(reader io.Reader, httpConfig config.HTTPProbe, logger log.Logger) bool {
@@ -286,15 +286,15 @@ func ProbeHTTP(ctx context.Context, target string, module config.Module, registr
 			return false
 		}
 		durationGaugeVec.WithLabelValues("resolve").Add(lookupTime)
-		
+
 		if targetPort == "" {
-		 	targetURL.Host = "[" + ip.String() + "]"
+			targetURL.Host = "[" + ip.String() + "]"
 		} else {
-		 	targetURL.Host = net.JoinHostPort(ip.String(), targetPort)
+			targetURL.Host = net.JoinHostPort(ip.String(), targetPort)
 		}
 	}
 
-	client, err := pconfig.NewHTTPClientFromConfig(&httpClientConfig)
+	client, err := pconfig.NewClientFromConfig(httpClientConfig, "ProberClient", false)
 	if err != nil {
 		level.Error(logger).Log("msg", "Error generating HTTP client", "err", err)
 		return false

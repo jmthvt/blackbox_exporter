@@ -37,8 +37,8 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 	"gopkg.in/yaml.v2"
 
-	"github.com/DeviaVir/blackbox_exporter/config"
-	"github.com/DeviaVir/blackbox_exporter/prober"
+	"github.com/jmthvt/blackbox_exporter/config"
+	"github.com/jmthvt/blackbox_exporter/prober"
 	dto "github.com/prometheus/client_model/go"
 )
 
